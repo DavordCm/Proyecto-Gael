@@ -15,7 +15,7 @@ const Invitation = () => {
       <h1>¡Estás invitado a mi cumpleaños!</h1>
       <h2>🎉 ¡Será una carrera Hot Wheels épica! 🏁</h2>
       <p>👦 Cumpleañero: <strong>Gael</strong></p>
-      <p>🗓️ Fecha: 31 de junio de 2025</p>
+      <p>🗓️ Fecha: 31 de mayo de 2025</p>
 
       <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
         <button onClick={() => setShowLocation(!showLocation)} className="location-btn">
