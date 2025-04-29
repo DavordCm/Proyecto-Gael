@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
-const Countdown = ({ targetDate }) => {
+const Countdown = () => {
+  const targetDate = new Date(2025, 5, 30, 23, 59, 59); // Junio es el mes 5 (los meses comienzan desde 0)
+
   const calculateTimeLeft = () => {
-    const difference = +new Date(targetDate) - +new Date();
+    const difference = +targetDate - +new Date();
     let timeLeft = {};
 
     if (difference > 0) {
@@ -24,13 +26,19 @@ const Countdown = ({ targetDate }) => {
     return () => clearTimeout(timer);
   });
 
+  const isExpired = Object.keys(timeLeft).length === 0;
+
   return (
     <div className="countdown">
-      {Object.keys(timeLeft).map((interval) => (
-        <span key={interval}>
-          {timeLeft[interval]} {interval}{' '}
-        </span>
-      ))}
+      {isExpired ? (
+        <span>¡Tiempo terminado!</span>
+      ) : (
+        Object.keys(timeLeft).map((interval) => (
+          <span key={interval}>
+            {timeLeft[interval]} {interval}{' '}
+          </span>
+        ))
+      )}
     </div>
   );
 };
