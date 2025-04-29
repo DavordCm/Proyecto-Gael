@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 const Countdown = () => {
-  const targetDate = new Date(2025, 5, 30, 23, 59, 59); // Junio es el mes 5 (los meses comienzan desde 0)
+  const targetDate = new Date(2025, 4, 31, 23, 59, 59); // Mayo (mes 4)
 
   const calculateTimeLeft = () => {
     const difference = +targetDate - +new Date();
