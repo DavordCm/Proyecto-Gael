@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Countdown from './Countdown';
 import CarRace from './CarRace';
 import Confetti from 'react-confetti';
@@ -8,14 +8,46 @@ const Invitation = () => {
   const birthdayDate = '2025-05-15T15:00:00';
   const [showLocation, setShowLocation] = useState(false);
   const [showMap, setShowMap] = useState(false);
+  const [volume, setVolume] = useState(0.5); // volumen inicial al 50%
+
+  const audioRef = useRef(null);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
+    }
+  }, [volume]); // actualiza volumen cada vez que cambie
 
   return (
     <div className="invitation">
+      {/* 🎵 Música de fondo */}
+      <audio
+        ref={audioRef}
+        src="/Hot Wheels ¡Máxima Velocidad!.mp3"
+        autoPlay
+        loop
+      />
+
       <Confetti />
       <h1>¡Estás invitado a mi cumpleaños!</h1>
       <h2>🎉 ¡Será una carrera Hot Wheels épica! 🏁</h2>
       <p>👦 Cumpleañero: <strong>Gael</strong></p>
       <p>🗓️ Fecha: 31 de mayo de 2025</p>
+
+      {/* 🔊 Control de volumen */}
+      <div style={{ margin: '20px 0' }}>
+        <label style={{ fontWeight: 'bold' }}>🔊 Volumen: </label>
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.01"
+          value={volume}
+          onChange={(e) => setVolume(parseFloat(e.target.value))}
+          style={{ width: '200px', verticalAlign: 'middle' }}
+        />
+        <span style={{ marginLeft: '10px' }}>{Math.round(volume * 100)}%</span>
+      </div>
 
       <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
         <button onClick={() => setShowLocation(!showLocation)} className="location-btn">
