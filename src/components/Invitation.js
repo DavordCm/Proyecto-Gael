@@ -23,7 +23,7 @@ const Invitation = () => {
       {/* 🎵 Música de fondo */}
       <audio
         ref={audioRef}
-        src="/Hot Wheels ¡Máxima Velocidad!.mp3"
+        src="/HotWheels.mp3"
         autoPlay
         loop
       />
