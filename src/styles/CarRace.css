@@ -1,29 +1,30 @@
 .race-track {
-  background: #444;
+  background: linear-gradient(#aaa, #ddd);
   width: 100%;
-  height: 300px;
+  height: 320px;
   position: relative;
   overflow: hidden;
-  border-radius: 15px;
-  border: 5px solid orange;
+  border-radius: 20px;
+  border: 5px dashed yellow;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   padding: 10px 0;
 }
 
-/* Carril individual */
+/* Nueva vía mejorada */
 .track-lane {
-  background: linear-gradient(#ff7b00, #ff6600);
-  height: 70px;
+  background: #333; /* gris oscuro como asfalto */
+  height: 80px;
   margin: 5px 20px;
-  border-radius: 10px;
+  border-radius: 20px;
   position: relative;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.5) inset, 0 0 15px #555;
   overflow: hidden;
-  box-shadow: inset 0 0 8px #00000080;
+  border: 4px solid white; /* bordes blancos */
 }
 
-/* Línea central amarilla segmentada */
+/* Línea amarilla discontinua */
 .track-lane::before {
   content: '';
   position: absolute;
@@ -37,66 +38,84 @@
     transparent 20px 40px
   );
   transform: translateY(-50%);
-  opacity: 0.8;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 6px yellow);
 }
+
 
 /* Carros */
 .car {
-  width: 100px;
-  height: 40px;
-  border-radius: 8px;
+  width: 120px;
+  height: 50px;
+  border-radius: 12px;
   position: absolute;
   top: 15px;
-  left: -120px;
+  left: -150px;
   animation-name: moveCar;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  padding: 0 10px;
-  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+  border: 3px solid white;
+  z-index: 1;
 }
 
-/* Ventana del coche */
-.car::before {
-  content: '';
+/* Luces decorativas */
+.deco-light {
   position: absolute;
-  top: 5px;
-  left: 20px;
-  width: 60px;
-  height: 15px;
-  background-color: rgba(255, 255, 255, 0.6);
-  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 0 30px white, 0 0 60px white;
+  opacity: 0.15;
+  z-index: -1;
 }
 
-/* Llantas visibles */
+/* Ventanas */
+.window {
+  width: 70px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  margin: 6px 0;
+  box-shadow: 0 0 8px rgba(255,255,255,0.6);
+}
+
+/* Llantas */
 .wheel {
-  width: 14px;
-  height: 14px;
-  background: #222;
+  width: 16px;
+  height: 16px;
+  background: #111;
   border-radius: 50%;
   border: 2px solid #555;
   animation: spin 0.4s linear infinite;
-  position: relative;
+  box-shadow: 0 0 5px #000;
 }
 
+/* Posición llantas */
 .front {
-  align-self: flex-end;
+  position: absolute;
+  bottom: -8px;
+  right: 10px;
 }
 
 .rear {
-  align-self: flex-end;
+  position: absolute;
+  bottom: -8px;
+  left: 10px;
 }
 
-/* Animación de las ruedas */
+/* Animación ruedas */
 @keyframes spin {
   to {
     transform: rotate(360deg);
   }
 }
 
-/* Movimiento del coche */
+/* Movimiento */
 @keyframes moveCar {
   0% {
     transform: translateX(0px);
@@ -106,18 +125,18 @@
   }
 }
 
-/* Colores */
+/* Colores llamativos */
 .car-red {
-  background-color: red;
-  animation-duration: 3s;
+  background: linear-gradient(#ff0033, #cc0000);
+  box-shadow: 0 0 20px #ff0033, 0 0 40px #ff0033;
 }
 
 .car-green {
-  background-color: limegreen;
-  animation-duration: 6s;
+  background: linear-gradient(#00ff66, #009933);
+  box-shadow: 0 0 20px #00ff66, 0 0 40px #00ff66;
 }
 
 .car-blue {
-  background-color: rgb(161, 130, 203);
-  animation-duration: 4.5s;
+  background: linear-gradient(#3399ff, #0033cc);
+  box-shadow: 0 0 20px #3399ff, 0 0 40px #3399ff;
 }
