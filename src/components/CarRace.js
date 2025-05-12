@@ -5,6 +5,7 @@ const Car = ({ color, speed }) => {
   return (
     <div className={`car car-${color}`} style={{ animationDuration: speed }}>
       <div className="deco-light"></div>
+      <div className="shadow"></div>
       <div className="window"></div>
       <div className="wheel rear"></div>
       <div className="wheel front"></div>

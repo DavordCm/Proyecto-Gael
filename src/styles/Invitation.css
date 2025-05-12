@@ -39,3 +39,18 @@
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+.avatar-img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #ffa500;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  margin: 20px auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.avatar-img:hover {
+  transform: scale(1.05);
+}

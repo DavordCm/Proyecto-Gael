@@ -1,3 +1,4 @@
+/* Pista */
 .race-track {
   background: linear-gradient(#aaa, #ddd);
   width: 100%;
@@ -12,36 +13,36 @@
   padding: 10px 0;
 }
 
-/* Nueva vía mejorada */
+/* Carril */
 .track-lane {
-  background: #333; /* gris oscuro como asfalto */
-  height: 80px;
-  margin: 5px 20px;
-  border-radius: 20px;
+  background: #333;
+  height: 120px;
+  margin: 10px 20px;
+  border-radius: 30px;
   position: relative;
   box-shadow: 0 8px 15px rgba(0,0,0,0.5) inset, 0 0 15px #555;
   overflow: hidden;
-  border: 4px solid white; /* bordes blancos */
+  border: 1px solid white; /* ⬅️ Aumenté de 5px a 8px */
+  padding: 45px 0; /* ⬅️ Nuevo: da espacio para que los carros no se corten */
 }
 
-/* Línea amarilla discontinua */
+
 .track-lane::before {
   content: '';
   position: absolute;
   top: 50%;
   left: 0;
   width: 100%;
-  height: 6px;
+  height: 8px;
   background-image: repeating-linear-gradient(
     to right,
-    yellow 0 20px,
-    transparent 20px 40px
+    yellow 0 30px,
+    transparent 30px 60px
   );
   transform: translateY(-50%);
   opacity: 0.9;
   filter: drop-shadow(0 0 6px yellow);
 }
-
 
 /* Carros */
 .car {
@@ -86,25 +87,24 @@
 
 /* Llantas */
 .wheel {
-  width: 16px;
-  height: 16px;
-  background: #111;
+  width: 24px;
+  height: 24px;
+  background: radial-gradient(circle at center, #333 30%, #000 70%, #111 100%);
   border-radius: 50%;
-  border: 2px solid #555;
+  border: 3px solid #aaa;
   animation: spin 0.4s linear infinite;
-  box-shadow: 0 0 5px #000;
+  box-shadow: 0 0 5px #000, 0 0 10px rgba(0,0,0,0.5);
+  z-index: 2;
+  position: absolute;
 }
 
-/* Posición llantas */
 .front {
-  position: absolute;
-  bottom: -8px;
+  bottom: -12px;
   right: 10px;
 }
 
 .rear {
-  position: absolute;
-  bottom: -8px;
+  bottom: -12px;
   left: 10px;
 }
 
@@ -125,7 +125,7 @@
   }
 }
 
-/* Colores llamativos */
+/* Colores */
 .car-red {
   background: linear-gradient(#ff0033, #cc0000);
   box-shadow: 0 0 20px #ff0033, 0 0 40px #ff0033;
@@ -139,4 +139,18 @@
 .car-blue {
   background: linear-gradient(#3399ff, #0033cc);
   box-shadow: 0 0 20px #3399ff, 0 0 40px #3399ff;
+}
+
+/* Sombra */
+.shadow {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 15px;
+  background: radial-gradient(circle, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 70%);
+  opacity: 0.6;
+  z-index: 0;
+  filter: blur(2px);
 }

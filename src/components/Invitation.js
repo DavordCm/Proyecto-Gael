@@ -29,6 +29,7 @@ const Invitation = () => {
       />
 
       <Confetti />
+      <img src="/gael.jpg" alt="Cumpleañero Gael" className="avatar-img" />
       <h1>¡Estás invitado a mi cumpleaños!</h1>
       <h2>🎉 ¡Será una carrera Hot Wheels épica! 🏁</h2>
       <p>👦 Cumpleañero: <strong>Gael</strong></p>
