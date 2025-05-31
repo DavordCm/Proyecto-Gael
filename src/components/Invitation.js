@@ -64,8 +64,8 @@ const Invitation = () => {
 
       {showLocation && (
         <div className="location-box">
-          🏁 <strong>El cumpleañero te espera en:</strong><br />
-          336 Av. Guardia Civil Sur<br />
+          🏁 <strong>El cumpleañero te espera en:</strong>
+          <br />buenos aires de villa Mz 44 lt12 chorrillos<br />
           📍 ¡No faltes!
         </div>
       )}
@@ -74,7 +74,7 @@ const Invitation = () => {
         <div className="map-container">
           <iframe
             title="Mapa ubicación cumpleaños"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3900.785101110396!2d-77.00492899999999!3d-12.184604!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c71e5e7e164f%3A0xabc1234567890!2sAv.%20Guardia%20Civil%20Sur%20336!5e0!3m2!1ses-419!2spe!4v1714400000000!5m2!1ses-419!2spe"
+            src="https://www.google.com/maps/embed?pb=!4v1748654004255!6m8!1m7!1sRxVIM7OFI8rLRSIrQo1fOA!2m2!1d-12.18859419911167!2d-76.99979579504422!3f283.12500616179625!4f-30.508168153515328!5f0.7820865974627469"
             width="100%"
             height="300"
             style={{ border: '2px solid orange', borderRadius: '10px', marginTop: '10px' }}
