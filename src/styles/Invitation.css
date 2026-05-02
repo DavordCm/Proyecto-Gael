@@ -1,56 +1,468 @@
-.location-btn {
-  margin: 20px auto;
-  padding: 12px 24px;
-  background: linear-gradient(135deg, #ffd700, #ffa500);
-  border: none;
-  border-radius: 12px;
-  font-size: 17px;
-  font-weight: 600;
-  color: #333;
-  cursor: pointer;
-  display: block;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
-  transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Russo+One&family=Poppins:wght@400;600;700&display=swap');
+
+/* === Escenario === */
+.stage {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  padding: 80px 16px 60px;
+  background:
+    radial-gradient(ellipse at center, #2b2b2b 0%, #0a0a0a 100%);
+  font-family: 'Poppins', sans-serif;
+}
+
+.stage-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(90deg, transparent 0 80px, rgba(255, 235, 59, 0.04) 80px 82px);
+  z-index: 0;
+}
+
+.stage-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.7) 100%);
+  pointer-events: none;
+}
+
+.stage-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background-image: repeating-linear-gradient(
+    to right,
+    #ffeb3b 0 50px,
+    transparent 50px 100px
+  );
+  filter: drop-shadow(0 0 8px #ffeb3b);
+  opacity: 0.5;
+}
+.stage-line-top    { top: 22%; }
+.stage-line-bottom { bottom: 18%; }
+
+/* === Auto de entrada === */
+.entrance-anchor {
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  width: 0;
+  height: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.entrance-car {
+  position: relative;
+  width: 230px;
+  height: 100px;
+  margin-left: -115px;
+  margin-top: -50px;
+  filter: drop-shadow(0 12px 16px rgba(0, 0, 0, 0.75));
+  will-change: transform;
+}
+
+/* Las ruedas del auto de entrada giran siempre durante la animación */
+.entrance-car .svg-wheel {
+  animation: spin 0.28s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Líneas de velocidad detrás del auto */
+.speed-lines {
+  position: absolute;
+  top: 50%;
+  right: -20px;
+  width: 220px;
+  height: 80px;
+  transform: translateY(-50%);
+  z-index: -1;
+  background:
+    repeating-linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.85) 0 4px,
+      transparent 4px 16px
+    );
+  mask-image: linear-gradient(to left, transparent 0%, black 30%, black 90%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to left, transparent 0%, black 30%, black 90%, transparent 100%);
+  filter: blur(1px);
+}
+
+.skid-smoke {
+  position: absolute;
+  bottom: -12px;
+  left: -40px;
+  width: 130px;
+  height: 36px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(220, 220, 220, 0) 70%
+  );
+  filter: blur(5px);
+  z-index: -1;
+}
+
+/* === Tarjeta de invitación === */
+.invitation-card {
+  position: relative;
+  max-width: 460px;
+  margin: 60px auto 40px;
+  padding: 38px 26px 24px;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      rgba(255, 152, 0, 0.025) 0 12px,
+      transparent 12px 24px
+    ),
+    linear-gradient(160deg, #fffaf0 0%, #ffffff 60%, #fff5e1 100%);
+  border-radius: 24px;
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.6),
+    0 0 0 4px #ff9800,
+    0 0 0 8px rgba(255, 152, 0, 0.25),
+    inset 0 0 30px rgba(255, 152, 0, 0.08);
+  z-index: 3;
   text-align: center;
+  font-family: 'Poppins', sans-serif;
+  color: #2b2b2b;
 }
 
-.location-btn:hover {
-  background: linear-gradient(135deg, #ffc107, #ff9800);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+/* Esquinas a cuadros tipo cinta de carrera */
+.card-corner {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  background-image:
+    linear-gradient(45deg, #fff 25%, #000 25%, #000 50%, #fff 50%, #fff 75%, #000 75%);
+  background-size: 10px 10px;
+  border-radius: 6px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+  z-index: 1;
+}
+.card-corner.top-left     { top: -12px;    left: -12px;   transform: rotate(-15deg); }
+.card-corner.top-right    { top: -12px;    right: -12px;  transform: rotate(15deg); }
+.card-corner.bottom-left  { bottom: -12px; left: -12px;   transform: rotate(15deg); }
+.card-corner.bottom-right { bottom: -12px; right: -12px;  transform: rotate(-15deg); }
+
+/* Sello de la fiesta */
+.card-stamp {
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  background: linear-gradient(135deg, #ff5722, #c62828);
+  color: white;
+  padding: 9px 24px;
+  border-radius: 28px;
+  font-family: 'Russo One', sans-serif;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  box-shadow:
+    0 6px 14px rgba(0, 0, 0, 0.4),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.2),
+    inset 0 2px 0 rgba(255, 255, 255, 0.25);
+  white-space: nowrap;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.stamp-flame {
+  display: inline-block;
+  animation: flicker 1.4s ease-in-out infinite;
+}
+.stamp-flame:last-child { animation-delay: 0.7s; }
+@keyframes flicker {
+  0%, 100% { transform: scale(1) rotate(-3deg); }
+  50%      { transform: scale(1.15) rotate(5deg); }
 }
 
+/* Marco de la foto */
+.card-photo-frame {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin: 16px auto 8px;
+}
+
+.card-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #fff;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+  background: #fff;
+  display: block;
+  position: relative;
+  z-index: 2;
+}
+
+.card-photo-ring {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    #ff5722, #ffd700, #ff9800, #ff5722, #ffd700, #ff9800, #ff5722
+  );
+  z-index: 1;
+  animation: spin-ring 6s linear infinite;
+  filter: drop-shadow(0 0 10px rgba(255, 152, 0, 0.5));
+}
+@keyframes spin-ring {
+  to { transform: rotate(360deg); }
+}
+
+/* Títulos */
+.card-title {
+  font-family: 'Bangers', cursive;
+  font-size: clamp(2rem, 7vw, 2.8rem);
+  margin: 12px 0 4px;
+  color: #d32f2f;
+  letter-spacing: 2px;
+  text-shadow:
+    2px 2px 0 #ffd700,
+    4px 4px 0 rgba(0, 0, 0, 0.15);
+  line-height: 1;
+}
+
+.card-subtitle {
+  font-size: clamp(0.95rem, 2.8vw, 1.1rem);
+  margin: 0 0 16px;
+  color: #555;
+  font-weight: 400;
+}
+.card-subtitle strong {
+  color: #ff5722;
+  font-family: 'Russo One', sans-serif;
+  font-size: 1.25em;
+  letter-spacing: 1px;
+}
+
+/* Caja de detalles fecha/hora */
+.card-details {
+  background: linear-gradient(135deg, #fff3e0, #fff8e1);
+  border: 2px dashed #ff9800;
+  border-radius: 14px;
+  padding: 12px 18px;
+  margin: 0 auto 16px;
+  display: inline-block;
+  font-size: 15px;
+  color: #444;
+  font-weight: 600;
+}
+.detail-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+.detail-icon { font-size: 18px; }
+.detail-divider {
+  height: 1px;
+  background: rgba(255, 152, 0, 0.35);
+  margin: 6px 0;
+}
+
+/* Acciones */
+.card-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 18px 0 12px;
+}
+
+.card-btn {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #ffd700, #ffa000);
+  color: #2b2b2b;
+  font-family: 'Russo One', sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  box-shadow:
+    0 5px 12px rgba(0, 0, 0, 0.25),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.18),
+    inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  min-width: 84px;
+}
+.card-btn:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 8px 16px rgba(0, 0, 0, 0.3),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.18),
+    inset 0 2px 0 rgba(255, 255, 255, 0.3);
+}
+.card-btn:active {
+  transform: translateY(0);
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+}
+.btn-icon { font-size: 20px; line-height: 1; }
+.card-btn.music {
+  background: linear-gradient(135deg, #66bb6a, #2e7d32);
+  color: white;
+}
+.card-btn.music[aria-pressed="true"] {
+  background: linear-gradient(135deg, #ef5350, #c62828);
+}
+.card-btn.race {
+  background: linear-gradient(135deg, #ff7043, #d84315);
+  color: white;
+}
+.card-btn.small {
+  flex-direction: row;
+  padding: 8px 14px;
+  font-size: 12px;
+  min-width: auto;
+}
+
+/* Slider de volumen */
+.volume-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #666;
+  margin: 4px auto 6px;
+  background: rgba(255, 152, 0, 0.06);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+.volume-row input[type="range"] {
+  width: 120px;
+  accent-color: #ff5722;
+}
+.volume-value {
+  font-family: 'Russo One', sans-serif;
+  color: #ff5722;
+  min-width: 36px;
+}
+
+/* Caja de ubicación */
 .location-box {
-  margin: 15px auto;
-  padding: 18px 24px;
-  background-color: #fff8e1;
+  margin: 12px auto 0;
+  padding: 14px 18px;
+  background: #fff8e1;
   color: #444;
   border: 2px solid #ffb300;
   border-radius: 12px;
-  text-align: center;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 16px;
-  animation: fadeIn 0.6s ease-in-out;
-  max-width: 400px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-size: 15px;
+  max-width: 380px;
+  overflow: hidden;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.avatar-img {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 5px solid #ffa500;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  margin: 20px auto;
-  display: block;
-  transition: transform 0.3s ease;
+.map-container {
+  margin: 10px auto 0;
+  max-width: 420px;
+  overflow: hidden;
 }
 
-.avatar-img:hover {
-  transform: scale(1.05);
+/* Aviso de audio bloqueado */
+.audio-unlock {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #ff5722, #c62828);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-family: 'Russo One', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  z-index: 100;
+  animation: pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.05); }
+}
+
+/* Pop-up de la carrera */
+.race-popup {
+  position: relative;
+  z-index: 3;
+  max-width: 760px;
+  margin: 10px auto 0;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 235, 59, 0.3);
+  border-radius: 18px;
+  backdrop-filter: blur(6px);
+}
+
+/* Countdown */
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 14px auto;
+}
+.countdown-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, #ff5722, #d84315);
+  color: white;
+  padding: 9px 13px;
+  border-radius: 12px;
+  min-width: 58px;
+  box-shadow:
+    0 5px 10px rgba(0, 0, 0, 0.25),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.15),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2);
+}
+.countdown-cell strong {
+  font-family: 'Russo One', sans-serif;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+.countdown-cell small {
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  opacity: 0.95;
+  margin-top: 4px;
+  letter-spacing: 0.6px;
+}
+.countdown-expired {
+  font-family: 'Bangers', cursive;
+  font-size: 1.5rem;
+  color: #c62828;
+  letter-spacing: 1.5px;
+}
+
+/* Responsive */
+@media (max-width: 540px) {
+  .stage { padding: 50px 10px 40px; }
+  .invitation-card {
+    padding: 30px 18px 20px;
+    margin: 40px 8px 30px;
+  }
+  .entrance-car { width: 180px; height: 80px; margin-left: -90px; margin-top: -40px; }
+  .speed-lines { width: 160px; height: 60px; }
+  .card-photo-frame { width: 110px; height: 110px; }
+  .card-btn { padding: 8px 14px; min-width: 74px; }
+  .stage-line-top    { top: 18%; }
+  .stage-line-bottom { bottom: 14%; }
+  .audio-unlock { bottom: 12px; right: 12px; left: 12px; }
 }

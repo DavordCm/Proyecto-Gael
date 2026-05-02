@@ -1,0 +1,210 @@
+.podium-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.86);
+  backdrop-filter: blur(8px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.podium-modal {
+  position: relative;
+  background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
+  border: 3px solid #ffd700;
+  border-radius: 22px;
+  padding: 30px 24px 22px;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  box-shadow:
+    0 25px 60px rgba(255, 215, 0, 0.35),
+    inset 0 0 30px rgba(255, 215, 0, 0.08);
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+}
+
+.podium-modal::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 22px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    rgba(255, 215, 0, 0.4) 25%,
+    transparent 50%,
+    rgba(255, 215, 0, 0.4) 75%,
+    transparent 100%
+  );
+  z-index: -1;
+  animation: spin-aura 8s linear infinite;
+  filter: blur(3px);
+}
+@keyframes spin-aura {
+  to { transform: rotate(360deg); }
+}
+
+.podium-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.podium-close:hover { background: rgba(255, 255, 255, 0.25); }
+
+.podium-title {
+  font-family: 'Bangers', cursive;
+  font-size: clamp(1.7rem, 5vw, 2.4rem);
+  letter-spacing: 2px;
+  color: #ffd700;
+  text-shadow: 2px 2px 0 #c62828, 4px 4px 0 rgba(0, 0, 0, 0.5);
+  margin: 0 0 4px;
+}
+
+.podium-subtitle {
+  margin: 0 0 18px;
+  font-size: 14px;
+  color: #ddd;
+}
+.podium-subtitle strong {
+  color: #ffd700;
+  font-family: 'Russo One', sans-serif;
+}
+
+.podium-stage {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 6px;
+  margin: 10px 0 16px;
+  min-height: 290px;
+}
+
+.podium-pos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+}
+
+.char-stack {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 6px;
+  min-height: 160px;
+  justify-content: flex-end;
+}
+
+.char-body-wrap {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.char-body-svg {
+  width: 90px;
+  height: 130px;
+  display: block;
+}
+
+.pos-1 .char-body-svg { width: 105px; height: 150px; }
+
+.car-mini-wrap {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  z-index: 1;
+  opacity: 0.55;
+  filter: blur(0.4px);
+}
+.pos-1 .car-mini-wrap { width: 100px; opacity: 0.65; }
+.car-mini-wrap .car-svg {
+  width: 100%;
+  height: auto;
+}
+
+.step {
+  width: 100%;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  font-family: 'Russo One', sans-serif;
+  color: #1a1a1a;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+  box-shadow:
+    inset 0 -5px 0 rgba(0, 0, 0, 0.25),
+    0 4px 12px rgba(0, 0, 0, 0.4);
+  position: relative;
+}
+.step-medal { font-size: 26px; line-height: 1; }
+.step-num { font-size: 18px; line-height: 1; margin-top: 2px; }
+
+.step-1 {
+  height: 110px;
+  background: linear-gradient(180deg, #ffe35a 0%, #ff9800 100%);
+}
+.step-2 {
+  height: 80px;
+  background: linear-gradient(180deg, #e6e6e6 0%, #999 100%);
+}
+.step-3 {
+  height: 56px;
+  background: linear-gradient(180deg, #d8a064 0%, #8b4513 100%);
+  color: #fff;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
+}
+
+.podium-action {
+  margin-top: 8px;
+  padding: 11px 28px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #ff5722, #d84315);
+  color: white;
+  font-family: 'Russo One', sans-serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+  transition: transform 0.15s ease;
+}
+.podium-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 540px) {
+  .podium-modal { padding: 24px 14px 18px; }
+  .podium-stage { gap: 3px; min-height: 240px; }
+  .char-body-svg { width: 70px; height: 100px; }
+  .pos-1 .char-body-svg { width: 82px; height: 118px; }
+  .car-mini-wrap { width: 70px; }
+  .pos-1 .car-mini-wrap { width: 78px; }
+  .step-medal { font-size: 20px; }
+  .step-num { font-size: 14px; }
+  .step-1 { height: 90px; }
+  .step-2 { height: 65px; }
+  .step-3 { height: 46px; }
+}

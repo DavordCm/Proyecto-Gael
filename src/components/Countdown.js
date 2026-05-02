@@ -1,41 +1,36 @@
 import React, { useEffect, useState } from 'react';
 
-const Countdown = () => {
-  const targetDate = new Date(2025, 4, 31, 23, 59, 59); // Mayo (mes 4)
-
-  const calculateTimeLeft = () => {
-    const difference = +targetDate - +new Date();
-    let timeLeft = {};
-
-    if (difference > 0) {
-      timeLeft = {
-        días: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        horas: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutos: Math.floor((difference / 1000 / 60) % 60),
-        segundos: Math.floor((difference / 1000) % 60),
-      };
-    }
-
-    return timeLeft;
+const calculateTimeLeft = (target) => {
+  const difference = +target - +new Date();
+  if (difference <= 0) return {};
+  return {
+    días: Math.floor(difference / (1000 * 60 * 60 * 24)),
+    horas: Math.floor((difference / (1000 * 60 * 60)) % 24),
+    minutos: Math.floor((difference / 1000 / 60) % 60),
+    segundos: Math.floor((difference / 1000) % 60),
   };
+};
 
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+const Countdown = ({ targetDate }) => {
+  const target = new Date(targetDate);
+  const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft(target));
 
   useEffect(() => {
-    const timer = setTimeout(() => setTimeLeft(calculateTimeLeft()), 1000);
-    return () => clearTimeout(timer);
-  });
+    const timer = setInterval(() => setTimeLeft(calculateTimeLeft(target)), 1000);
+    return () => clearInterval(timer);
+  }, [targetDate]);
 
   const isExpired = Object.keys(timeLeft).length === 0;
 
   return (
-    <div className="countdown">
+    <div className="countdown" aria-live="polite">
       {isExpired ? (
-        <span>¡Tiempo terminado!</span>
+        <span className="countdown-expired">¡La carrera ya empezó! 🏁</span>
       ) : (
         Object.keys(timeLeft).map((interval) => (
-          <span key={interval}>
-            {timeLeft[interval]} {interval}{' '}
+          <span className="countdown-cell" key={interval}>
+            <strong>{timeLeft[interval]}</strong>
+            <small>{interval}</small>
           </span>
         ))
       )}

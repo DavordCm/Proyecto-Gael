@@ -1,156 +1,213 @@
+/* Sección */
+.race-section {
+  margin-top: 24px;
+}
+
+.race-btn {
+  display: block;
+  margin: 10px auto 15px;
+  padding: 12px 28px;
+  background: linear-gradient(135deg, #ff5722, #e64a19);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+  transition: transform 0.15s ease, box-shadow 0.3s ease;
+}
+.race-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+.race-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.winner-banner {
+  margin: 10px auto;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #ffd700, #ffa500);
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+  max-width: 360px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+  text-align: center;
+}
+
 /* Pista */
 .race-track {
-  background: linear-gradient(#aaa, #ddd);
+  background: linear-gradient(#888, #c8c8c8);
   width: 100%;
-  height: 320px;
   position: relative;
   overflow: hidden;
   border-radius: 20px;
-  border: 5px dashed yellow;
+  border: 5px dashed #ffeb3b;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  padding: 10px 0;
+  gap: 8px;
+  padding: 12px 0;
+  box-sizing: border-box;
 }
 
 /* Carril */
 .track-lane {
-  background: #333;
-  height: 120px;
-  margin: 10px 20px;
-  border-radius: 30px;
+  background: linear-gradient(180deg, #2b2b2b, #1a1a1a);
+  height: 105px;
+  margin: 0 16px;
+  border-radius: 50px;
   position: relative;
   box-shadow: 0 8px 15px rgba(0,0,0,0.5) inset, 0 0 15px #555;
-  overflow: hidden;
-  border: 1px solid white; /* ⬅️ Aumenté de 5px a 8px */
-  padding: 45px 0; /* ⬅️ Nuevo: da espacio para que los carros no se corten */
+  border: 1px solid #555;
 }
 
-
+/* línea central discontinua */
 .track-lane::before {
   content: '';
   position: absolute;
   top: 50%;
   left: 0;
   width: 100%;
-  height: 8px;
+  height: 6px;
   background-image: repeating-linear-gradient(
     to right,
-    yellow 0 30px,
-    transparent 30px 60px
+    #ffeb3b 0 26px,
+    transparent 26px 52px
   );
   transform: translateY(-50%);
-  opacity: 0.9;
-  filter: drop-shadow(0 0 6px yellow);
+  opacity: 0.85;
+  filter: drop-shadow(0 0 4px #ffeb3b);
 }
 
-/* Carros */
+/* Línea de meta a cuadros */
+.track-lane::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 16px;
+  width: 14px;
+  height: 100%;
+  background-image:
+    linear-gradient(45deg, #fff 25%, #000 25%, #000 50%, #fff 50%, #fff 75%, #000 75%);
+  background-size: 14px 14px;
+  z-index: 3;
+}
+
+/* Contenedor del carro (anima horizontalmente) */
 .car {
-  width: 120px;
-  height: 50px;
-  border-radius: 12px;
   position: absolute;
-  top: 15px;
-  left: -150px;
-  animation-name: moveCar;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 20px rgba(0,0,0,0.6);
-  border: 3px solid white;
-  z-index: 1;
+  top: 50%;
+  left: 12px;
+  width: 150px;
+  height: 80px;
+  transform: translateY(-50%);
+  z-index: 2;
+  filter: drop-shadow(0 6px 6px rgba(0,0,0,0.45));
 }
 
-/* Luces decorativas */
-.deco-light {
-  position: absolute;
+.car.running {
+  animation-name: moveCar;
+  animation-timing-function: cubic-bezier(0.2, 0.5, 0.4, 1);
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+/* Al terminar la carrera: pausamos la animación CSS — el ganador queda en la meta y los perdedores donde estaban */
+.car.running.winner,
+.car.running.loser {
+  animation-play-state: paused;
+}
+
+/* Wrapper interno: aquí se aplican framer-motion (salto/inclinación) sin pelearse con la animación CSS horizontal */
+.car-inner {
+  position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 12px;
-  box-shadow: 0 0 30px white, 0 0 60px white;
-  opacity: 0.15;
-  z-index: -1;
+  transform-origin: 50% 80%;
 }
 
-/* Ventanas */
-.window {
-  width: 70px;
-  height: 20px;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 5px;
-  margin: 6px 0;
-  box-shadow: 0 0 8px rgba(255,255,255,0.6);
+.car-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
-/* Llantas */
-.wheel {
-  width: 24px;
-  height: 24px;
-  background: radial-gradient(circle at center, #333 30%, #000 70%, #111 100%);
-  border-radius: 50%;
-  border: 3px solid #aaa;
-  animation: spin 0.4s linear infinite;
-  box-shadow: 0 0 5px #000, 0 0 10px rgba(0,0,0,0.5);
-  z-index: 2;
+/* Animación de ruedas (g.svg-wheel dentro del SVG) */
+.car.running .svg-wheel {
+  animation: spin 0.35s linear infinite;
+}
+
+/* === Estados de fin de carrera === */
+.car.winner .car-inner {
+  filter:
+    drop-shadow(0 0 14px gold)
+    drop-shadow(0 0 24px #ffcc00);
+}
+.car.loser .car-inner {
+  filter: brightness(0.8) saturate(0.85);
+  transition: filter 0.6s ease;
+}
+
+/* Overlay (trofeo / humo) */
+.status-overlay {
   position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
 }
 
-.front {
-  bottom: -12px;
-  right: 10px;
-}
-
-.rear {
-  bottom: -12px;
-  left: 10px;
-}
-
-/* Animación ruedas */
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Movimiento */
-@keyframes moveCar {
-  0% {
-    transform: translateX(0px);
-  }
-  100% {
-    transform: translateX(120vw);
-  }
-}
-
-/* Colores */
-.car-red {
-  background: linear-gradient(#ff0033, #cc0000);
-  box-shadow: 0 0 20px #ff0033, 0 0 40px #ff0033;
-}
-
-.car-green {
-  background: linear-gradient(#00ff66, #009933);
-  box-shadow: 0 0 20px #00ff66, 0 0 40px #00ff66;
-}
-
-.car-blue {
-  background: linear-gradient(#3399ff, #0033cc);
-  box-shadow: 0 0 20px #3399ff, 0 0 40px #3399ff;
-}
-
-/* Sombra */
-.shadow {
+.winner-overlay .trophy {
   position: absolute;
-  bottom: -10px;
+  top: -34px;
   left: 50%;
   transform: translateX(-50%);
-  width: 80px;
-  height: 15px;
-  background: radial-gradient(circle, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 70%);
-  opacity: 0.6;
-  z-index: 0;
-  filter: blur(2px);
+  font-size: 32px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+  animation: bounce-trophy 1s ease-in-out infinite;
+}
+@keyframes bounce-trophy {
+  0%, 100% { transform: translateX(-50%) translateY(0) rotate(-6deg); }
+  50%      { transform: translateX(-50%) translateY(-6px) rotate(6deg); }
+}
+
+.win-text {
+  position: absolute;
+  bottom: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #ffd700, #ff9800);
+  color: #2b2b2b;
+  font-family: 'Russo One', 'Segoe UI', sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+  white-space: nowrap;
+}
+
+.sparkle {
+  position: absolute;
+  font-size: 16px;
+  pointer-events: none;
+}
+
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes moveCar {
+  0% { transform: translate(0, -50%); }
+  100% { transform: translate(var(--lane-distance, 500px), -50%); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .track-lane { height: 92px; margin: 0 10px; }
+  .car { width: 120px; height: 70px; }
 }
