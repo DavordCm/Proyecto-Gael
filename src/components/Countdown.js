@@ -12,10 +12,11 @@ const calculateTimeLeft = (target) => {
 };
 
 const Countdown = ({ targetDate }) => {
-  const target = new Date(targetDate);
-  const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft(target));
+  const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft(new Date(targetDate)));
 
   useEffect(() => {
+    const target = new Date(targetDate);
+    setTimeLeft(calculateTimeLeft(target));
     const timer = setInterval(() => setTimeLeft(calculateTimeLeft(target)), 1000);
     return () => clearInterval(timer);
   }, [targetDate]);
